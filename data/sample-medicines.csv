@@ -69,3 +69,7 @@ Carbamazepine,Carbamazepine,Tegretol,Neurology,200mg,Tablet,42.00,68,2027-02-07,
 Gabapentin,Gabapentin,Neurontin,Neurology,300mg,Capsule,75.00,54,2027-04-23,Pfizer
 Sertraline,Sertraline,Zoloft,Mental Health,50mg,Tablet,58.00,47,2027-06-12,Pfizer
 Escitalopram,Escitalopram,Nexito,Mental Health,10mg,Tablet,44.00,51,2027-05-17,Sun Pharma
+Demo Medicine 1,Demo Medicine 1,Demo Medicine 1,Demo Prescription,Not specified,Tablet,10.00,100,2027-12-31,Demo Supplier
+Demo Medicine 2,Demo Medicine 2,Demo Medicine 2,Demo Prescription,Not specified,Capsule,20.00,100,2027-12-31,Demo Supplier
+Demo Medicine 3,Demo Medicine 3,Demo Medicine 3,Demo Prescription,Not specified,Tablet,30.00,100,2027-12-31,Demo Supplier
+Demo Medicine 4,Demo Medicine 4,Demo Medicine 4,Demo Prescription,Not specified,Tablet,40.00,100,2027-12-31,Demo Supplier
