@@ -23,8 +23,9 @@ export default function PrescriptionChecker() {
   const [results, setResults] = useState([]);
   const [preview, setPreview] = useState("");
   const [scanning, setScanning] = useState(false);
+  const [checked, setChecked] = useState(false);
 
-  function check() { setResults(matchMedicines(text, medicines)); }
+  function check() { setResults(matchMedicines(text, medicines)); setChecked(true); }
   async function upload(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -45,6 +46,7 @@ export default function PrescriptionChecker() {
       <div className="field"><label>Prescription text</label><textarea className="input" value={text} onChange={(event) => setText(event.target.value)} placeholder="Type or paste prescription details here..." /></div>
       <div className="notice"><AlertTriangle size={16} /> OCR results may contain errors. Please verify medicine names manually before dispensing.</div>
       <div className="form-actions"><button className="btn primary" onClick={check}><ScanLine size={16} /> Check availability</button></div>
+      {checked && results.length === 0 && <div className="notice"><AlertTriangle size={16} /> No inventory matches found. Review the prescription text and try again.</div>}
       {results.length > 0 && <div className="result-list">{results.map(({ medicine, confidence, match }) => <div className="result" key={medicine.id}><div><h4>{medicine.name} · {medicine.strength}</h4><p>{medicine.generic} · {medicine.brand} · {match} ({confidence}%)</p></div><div className="result-meta"><StatusBadge {...getStatus(medicine)} /><b>LKR {medicine.price.toFixed(2)} · {medicine.quantity} units</b></div></div>)}</div>}
     </section>
     <section className="card form-card">
