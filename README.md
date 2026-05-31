@@ -93,7 +93,9 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open `http://localhost:3000`. Supabase credentials are optional for the demo UI.
+Open `http://localhost:3000`. Customers are sent directly to the public
+prescription scanner and do not need an account. Supabase credentials are
+optional for the demo UI.
 Apply `supabase/schema.sql` and `supabase/seed.sql` when connecting a Supabase
 project.
 

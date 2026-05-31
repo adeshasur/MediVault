@@ -27,7 +27,7 @@ availability** to see matching inventory records.
 
 ## Customer Phone Scan
 
-Open `/scan` on a phone to take a prescription photo or enter medicine names.
+Open `/` or `/scan` on a phone to take a prescription photo or enter medicine names.
 After checking availability, customers can review stock quantities, prices,
 requested quantities, line totals, and the estimated prescription total. Use the
 reset button before checking a new prescription.
