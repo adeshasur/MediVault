@@ -99,16 +99,15 @@ optional for the demo UI.
 Apply `supabase/schema.sql` and `supabase/seed.sql` when connecting a Supabase
 project.
 
-Temporary staff login:
-
-```text
-Username: admin
-Password: MediVault@2026
-```
+Create staff email/password accounts in Supabase Auth before opening the staff
+workspace. See the [Supabase setup guide](docs/supabase-setup.md).
 
 Customers can open `http://localhost:3000/scan` from a phone to upload a
 prescription, review detected medicines, adjust requested quantities, and view
 the estimated total.
+
+Medicine records are loaded from Supabase PostgreSQL. The frontend does not use
+a hardcoded inventory fallback.
 
 ## License
 

@@ -22,14 +22,16 @@ export default function AppShell({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [ready, setReady] = useState(false);
   useEffect(() => {
-    if (!getStaffUser()) {
-      router.replace("/login");
-      return;
-    }
-    setReady(true);
+    getStaffUser().then((user) => {
+      if (!user) {
+        router.replace("/login");
+        return;
+      }
+      setReady(true);
+    });
   }, [router]);
-  function logout() {
-    signOut();
+  async function logout() {
+    await signOut();
     router.replace("/login");
   }
   if (!ready) return <div className="auth-loading">Checking staff access...</div>;

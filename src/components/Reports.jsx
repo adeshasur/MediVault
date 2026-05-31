@@ -6,12 +6,14 @@ import { useMedicines } from "@/hooks/useMedicines";
 import StatusBadge from "./StatusBadge";
 
 export default function Reports({ mode = "all" }) {
-  const { medicines } = useMedicines();
+  const { medicines, loading, error } = useMedicines();
   const low = medicines.filter((medicine) => medicine.quantity > 0 && medicine.quantity <= 10);
   const out = medicines.filter((medicine) => medicine.quantity === 0);
-  const expiry = medicines.filter((medicine) => daysUntil(medicine.expiry) <= 120).sort((a, b) => daysUntil(a.expiry) - daysUntil(b.expiry));
+  const expiry = medicines.filter((medicine) => medicine.expiry && daysUntil(medicine.expiry) <= 120).sort((a, b) => daysUntil(a.expiry) - daysUntil(b.expiry));
   const focus = mode === "low" ? low : mode === "expiry" ? expiry : [...low, ...out, ...expiry.filter((item) => !low.includes(item) && !out.includes(item))];
 
+  if (loading) return <div className="card empty">Loading reports from database...</div>;
+  if (error) return <div className="notice">{error}</div>;
   return <>
     <div className="report-grid">
       <ReportCard icon={TriangleAlert} title="Low stock" value={low.length} text="Medicines at or below the 10-unit reorder threshold." tone="amber" width="38%" />

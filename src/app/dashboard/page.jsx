@@ -1,22 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Boxes, ClipboardCheck, PackageCheck, PackageX, ScanLine, TriangleAlert } from "lucide-react";
 import AppShell from "@/components/AppShell";
 import PageHeader from "@/components/PageHeader";
 import StatCard from "@/components/StatCard";
 import StatusBadge from "@/components/StatusBadge";
-import { getStatus, seedMedicines } from "@/lib/medicines";
-
-const lowStock = seedMedicines.filter((medicine) => medicine.quantity <= 10);
+import { getStatus } from "@/lib/medicines";
+import { useMedicines } from "@/hooks/useMedicines";
 
 export default function Dashboard() {
+  const { medicines, loading, error } = useMedicines();
+  const lowStock = medicines.filter((medicine) => medicine.quantity <= 10);
   return <AppShell>
     <PageHeader eyebrow="Sunday, 31 May 2026" title="Good evening, Admin." description="Here is what is happening with your pharmacy inventory today." action={<Link className="btn primary" href="/checker"><ScanLine size={16} /> New prescription check</Link>} />
     <div className="stats">
-      <StatCard icon={Boxes} value={seedMedicines.length} label="Total medicines" note="+4 this month" />
-      <StatCard icon={PackageCheck} value={seedMedicines.filter((x) => x.quantity > 0).length} label="Available medicines" note="Healthy" />
+      <StatCard icon={Boxes} value={loading ? "..." : medicines.length} label="Total medicines" note="Database" />
+      <StatCard icon={PackageCheck} value={loading ? "..." : medicines.filter((x) => x.quantity > 0).length} label="Available medicines" note="Healthy" />
       <StatCard icon={TriangleAlert} value={lowStock.length} label="Low-stock alerts" note="Needs action" tone="amber" />
-      <StatCard icon={PackageX} value={seedMedicines.filter((x) => x.quantity === 0).length} label="Out of stock" note="Restock" tone="red" />
+      <StatCard icon={PackageX} value={medicines.filter((x) => x.quantity === 0).length} label="Out of stock" note="Restock" tone="red" />
     </div>
+    {error && <div className="notice">{error}</div>}
     <div className="dashboard-grid">
       <section className="card">
         <div className="panel-head"><h3>Inventory movement</h3><span className="pill blue">Last 7 days</span></div>

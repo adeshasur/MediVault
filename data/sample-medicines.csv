@@ -19,3 +19,53 @@ ORS,Oral Rehydration Salts,Jeevani,Rehydration,21g,Sachet,45.00,70,2027-01-18,SP
 Betadine,Povidone Iodine,Betadine,Antiseptic,10%,Solution,480.00,30,2027-05-10,Mundipharma
 Diclofenac,Diclofenac,Voveran,Pain Relief,50mg,Tablet,18.00,100,2026-10-01,Novartis
 Ibuprofen,Ibuprofen,Brufen,Pain Relief,400mg,Tablet,24.00,88,2026-09-28,Abbott
+Acetaminophen,Paracetamol,Calpol,Pain Relief,120mg/5ml,Syrup,210.00,44,2027-03-12,GSK
+Aspirin,Aspirin,Disprin,Pain Relief,75mg,Tablet,9.00,170,2027-06-01,Reckitt
+Naproxen,Naproxen,Naprosyn,Pain Relief,250mg,Tablet,48.00,52,2027-02-14,RPG
+Tramadol,Tramadol,Tramazac,Pain Relief,50mg,Capsule,62.00,24,2026-12-30,Zydus
+Fexofenadine,Fexofenadine,Allegra,Allergy,120mg,Tablet,42.00,75,2027-04-18,Sanofi
+Montelukast,Montelukast,Montek,Allergy,10mg,Tablet,38.00,69,2027-01-22,Sun Pharma
+Levocetirizine,Levocetirizine,Teczine,Allergy,5mg,Tablet,26.00,82,2026-11-19,Glenmark
+Fluconazole,Fluconazole,Forcan,Antifungal,150mg,Capsule,110.00,28,2027-03-08,Cipla
+Clotrimazole,Clotrimazole,Candid,Antifungal,1%,Cream,190.00,36,2027-07-10,Glenmark
+Metronidazole,Metronidazole,Flagyl,Antibiotic,400mg,Tablet,32.00,95,2027-02-16,Sanofi
+Ciprofloxacin,Ciprofloxacin,Ciplox,Antibiotic,500mg,Tablet,72.00,58,2026-12-09,Cipla
+Doxycycline,Doxycycline,Doxylag,Antibiotic,100mg,Capsule,45.00,64,2027-05-21,Lagap
+Cefuroxime,Cefuroxime,Ceftum,Antibiotic,500mg,Tablet,145.00,42,2027-01-14,GSK
+Clarithromycin,Clarithromycin,Klacid,Antibiotic,500mg,Tablet,175.00,31,2026-10-25,Abbott
+Esomeprazole,Esomeprazole,Nexium,Gastric,40mg,Tablet,58.00,77,2027-08-06,AstraZeneca
+Famotidine,Famotidine,Famotin,Gastric,20mg,Tablet,24.00,80,2027-02-11,Generic Pharma
+Domperidone,Domperidone,Motilium,Gastric,10mg,Tablet,18.00,90,2026-12-18,Janssen
+Ondansetron,Ondansetron,Emeset,Gastric,4mg,Tablet,55.00,39,2027-04-09,Cipla
+Gliclazide,Gliclazide,Diamicron,Diabetes,80mg,Tablet,28.00,108,2027-03-15,Servier
+Glimepiride,Glimepiride,Amaryl,Diabetes,2mg,Tablet,22.00,98,2027-06-19,Sanofi
+Sitagliptin,Sitagliptin,Januvia,Diabetes,100mg,Tablet,185.00,33,2027-01-29,MSD
+Insulin Glargine,Insulin Glargine,Lantus,Diabetes,100IU/ml,Injection,2850.00,14,2026-10-17,Sanofi
+Rosuvastatin,Rosuvastatin,Crestor,Cholesterol,10mg,Tablet,52.00,73,2027-04-27,AstraZeneca
+Simvastatin,Simvastatin,Zocor,Cholesterol,20mg,Tablet,39.00,60,2027-02-03,MSD
+Telmisartan,Telmisartan,Telma,Blood Pressure,40mg,Tablet,34.00,118,2027-05-11,Glenmark
+Enalapril,Enalapril,Envas,Blood Pressure,5mg,Tablet,12.00,126,2027-03-24,Cadila
+Bisoprolol,Bisoprolol,Concor,Blood Pressure,5mg,Tablet,46.00,71,2027-06-05,Merck
+Hydrochlorothiazide,Hydrochlorothiazide,HCTZ,Blood Pressure,25mg,Tablet,10.00,140,2027-04-04,Generic Pharma
+Clopidogrel,Clopidogrel,Plavix,Cardiac,75mg,Tablet,48.00,86,2027-07-09,Sanofi
+Isosorbide Mononitrate,Isosorbide Mononitrate,Monotrate,Cardiac,20mg,Tablet,26.00,63,2027-02-20,Sun Pharma
+Budesonide,Budesonide,Pulmicort,Asthma,200mcg,Inhaler,980.00,20,2027-04-30,AstraZeneca
+Beclomethasone,Beclomethasone,Beclate,Asthma,100mcg,Inhaler,720.00,18,2027-03-17,Cipla
+Theophylline,Theophylline,Theo Asthalin,Asthma,200mg,Tablet,30.00,49,2026-11-08,Cipla
+Prednisolone,Prednisolone,Wysolone,Steroid,5mg,Tablet,16.00,102,2027-06-22,Pfizer
+Hydrocortisone,Hydrocortisone,Hycoson,Steroid,1%,Cream,175.00,32,2027-08-15,Generic Pharma
+Vitamin D3,Cholecalciferol,Uprise,Supplement,1000IU,Tablet,28.00,112,2027-09-01,Alkem
+Calcium Carbonate,Calcium Carbonate,Shelcal,Supplement,500mg,Tablet,22.00,132,2027-07-18,Torrent
+Ferrous Sulfate,Ferrous Sulfate,Ferose,Supplement,200mg,Tablet,14.00,155,2027-05-06,SPC
+Folic Acid,Folic Acid,Folvite,Supplement,5mg,Tablet,8.00,180,2027-08-28,Pfizer
+Zinc Sulfate,Zinc Sulfate,Zincovit,Supplement,20mg,Tablet,18.00,115,2027-04-13,Apex
+Mupirocin,Mupirocin,T-Bact,Antiseptic,2%,Ointment,280.00,26,2027-03-02,GSK
+Chlorhexidine,Chlorhexidine,Savlon,Antiseptic,4%,Solution,340.00,40,2027-06-16,ITC
+Loperamide,Loperamide,Imodium,Diarrhea,2mg,Capsule,24.00,77,2027-01-26,Janssen
+Lactulose,Lactulose,Duphalac,Constipation,10g/15ml,Syrup,520.00,23,2027-05-29,Abbott
+Cetaphil Cleanser,Gentle Skin Cleanser,Cetaphil,Dermatology,125ml,Liquid,1650.00,16,2027-07-20,Galderma
+Adapalene,Adapalene,Differin,Dermatology,0.1%,Gel,690.00,21,2027-03-19,Galderma
+Carbamazepine,Carbamazepine,Tegretol,Neurology,200mg,Tablet,42.00,68,2027-02-07,Novartis
+Gabapentin,Gabapentin,Neurontin,Neurology,300mg,Capsule,75.00,54,2027-04-23,Pfizer
+Sertraline,Sertraline,Zoloft,Mental Health,50mg,Tablet,58.00,47,2027-06-12,Pfizer
+Escitalopram,Escitalopram,Nexito,Mental Health,10mg,Tablet,44.00,51,2027-05-17,Sun Pharma

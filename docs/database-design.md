@@ -1,7 +1,8 @@
 # Database Design
 
 MediVault uses Supabase PostgreSQL. Apply [`supabase/schema.sql`](../supabase/schema.sql)
-first, then load [`supabase/seed.sql`](../supabase/seed.sql) for demo records.
+first, then import [`data/sample-medicines.csv`](../data/sample-medicines.csv) or
+the pharmacy's actual inventory export. See the [Supabase setup guide](supabase-setup.md).
 
 ## Tables
 

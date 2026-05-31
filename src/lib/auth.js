@@ -1,17 +1,16 @@
-export const staffSessionKey = "medivault-staff-session";
+import { supabase } from "./supabaseClient";
 
-export function signIn(username, password) {
-  if (username === "admin" && password === "MediVault@2026") {
-    window.sessionStorage.setItem(staffSessionKey, "admin");
-    return true;
-  }
-  return false;
+export async function signIn(email, password) {
+  if (!supabase) return { error: { message: "Database connection is not configured." } };
+  return supabase.auth.signInWithPassword({ email, password });
 }
 
-export function signOut() {
-  window.sessionStorage.removeItem(staffSessionKey);
+export async function signOut() {
+  if (supabase) await supabase.auth.signOut();
 }
 
-export function getStaffUser() {
-  return window.sessionStorage.getItem(staffSessionKey);
+export async function getStaffUser() {
+  if (!supabase) return null;
+  const { data } = await supabase.auth.getSession();
+  return data.session?.user || null;
 }

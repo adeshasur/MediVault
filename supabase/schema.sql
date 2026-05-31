@@ -59,6 +59,7 @@ alter table scan_results enable row level security;
 alter table pharmacy_settings enable row level security;
 
 create policy "authenticated users can manage medicines" on medicines for all to authenticated using (true) with check (true);
+create policy "public users can view medicine availability" on medicines for select to anon using (true);
 create policy "users can manage own scans" on prescription_scans for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "authenticated users can manage scan results" on scan_results for all to authenticated using (true) with check (true);
 create policy "authenticated users can view settings" on pharmacy_settings for select to authenticated using (true);

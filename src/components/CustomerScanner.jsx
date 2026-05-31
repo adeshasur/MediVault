@@ -2,11 +2,13 @@
 
 import { useMemo, useState } from "react";
 import { AlertTriangle, Camera, CheckCircle2, LoaderCircle, Minus, Plus, RotateCcw, Search } from "lucide-react";
-import { matchMedicines, seedMedicines } from "@/lib/medicines";
+import { matchMedicines } from "@/lib/medicines";
 import { readMedicineNames } from "@/lib/ocr";
+import { useMedicines } from "@/hooks/useMedicines";
 import StatusBadge from "./StatusBadge";
 
 export default function CustomerScanner() {
+  const { medicines, loading, error } = useMedicines();
   const [text, setText] = useState("");
   const [matches, setMatches] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -20,7 +22,7 @@ export default function CustomerScanner() {
     setPreview(URL.createObjectURL(file));
     setScanning(true);
     try {
-      const medicineNames = await readMedicineNames(file, seedMedicines);
+      const medicineNames = await readMedicineNames(file, medicines);
       setText(medicineNames);
       if (!medicineNames) setChecked(true);
     } catch {
@@ -36,7 +38,7 @@ export default function CustomerScanner() {
       setChecked(true);
       return;
     }
-    const found = matchMedicines(text, seedMedicines);
+    const found = matchMedicines(text, medicines);
     setMatches(found);
     setChecked(true);
     setQuantities(Object.fromEntries(found.map(({ medicine }) => [medicine.id, 1])));
@@ -69,7 +71,8 @@ export default function CustomerScanner() {
       </label>
       <div className="field" style={{marginTop: 14}}><label>Detected prescription text</label><textarea className="input" value={text} onChange={(event) => setText(event.target.value)} placeholder="Type medicine names here..." /></div>
       <div className="notice"><AlertTriangle size={16} /> OCR may contain errors. Check the medicine names before viewing availability.</div>
-      <div className="form-actions"><button className="btn secondary" onClick={reset}><RotateCcw size={15} /> Reset</button><button className="btn primary" onClick={check}><Search size={16} /> Check availability</button></div>
+      {error && <div className="notice"><AlertTriangle size={16} /> {error} Ask pharmacy staff to configure the inventory database.</div>}
+      <div className="form-actions"><button className="btn secondary" onClick={reset}><RotateCcw size={15} /> Reset</button><button className="btn primary" disabled={loading || Boolean(error)} onClick={check}><Search size={16} /> {loading ? "Loading inventory..." : "Check availability"}</button></div>
     </section>
     {checked && matches.length === 0 && <div className="notice"><AlertTriangle size={16} /> No medicine names were detected. Upload a clearer image or type the medicine names manually.</div>}
     {matches.length > 0 && <section className="scan-results">

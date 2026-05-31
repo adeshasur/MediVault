@@ -2,15 +2,9 @@
 
 ## Demo Access
 
-Open `/login` and enter the temporary staff account:
-
-```text
-Username: admin
-Password: MediVault@2026
-```
-
-Staff pages redirect to `/login` until a valid staff session exists. The demo
-uses browser session storage until Supabase Auth is connected.
+Create a staff account in Supabase Auth, then open `/login` and enter its email
+and password. Staff pages redirect to `/login` until a valid Supabase session
+exists.
 
 ## Inventory
 
