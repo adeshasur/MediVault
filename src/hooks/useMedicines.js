@@ -26,5 +26,9 @@ export function useMedicines() {
     save(medicines.filter((medicine) => medicine.id !== id));
   }
 
-  return { medicines, add, remove };
+  function update(id, medicine) {
+    save(medicines.map((item) => item.id === id ? { ...item, ...medicine } : item));
+  }
+
+  return { medicines, add, remove, update };
 }
