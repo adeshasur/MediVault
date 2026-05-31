@@ -1,0 +1,21 @@
+medicine_name,generic_name,brand_name,category,strength,dosage_form,price,quantity,expiry_date,manufacturer
+Panadol,Paracetamol,Panadol,Pain Relief,500mg,Tablet,12.00,250,2027-03-10,GSK
+Piriton,Chlorpheniramine,Piriton,Allergy,4mg,Tablet,8.00,180,2026-11-20,GSK
+Amoxil,Amoxicillin,Amoxil,Antibiotic,500mg,Capsule,35.00,90,2026-09-15,GSK
+Augmentin,Amoxicillin Clavulanate,Augmentin,Antibiotic,625mg,Tablet,95.00,60,2026-12-01,GSK
+Cetirizine,Cetirizine,Cetirizine,Allergy,10mg,Tablet,18.00,120,2027-01-05,Generic Pharma
+Loratadine,Loratadine,Clarityne,Allergy,10mg,Tablet,22.00,75,2026-10-12,Bayer
+Omeprazole,Omeprazole,OMEZ,Gastric,20mg,Capsule,28.00,110,2027-02-18,Dr Reddy
+Pantoprazole,Pantoprazole,Pan 40,Gastric,40mg,Tablet,35.00,8,2026-08-30,Alkem
+Metformin,Metformin,Glycomet,Diabetes,500mg,Tablet,16.00,200,2027-04-21,USV
+Atorvastatin,Atorvastatin,Atorva,Cholesterol,10mg,Tablet,32.00,0,2026-07-14,Zydus
+Losartan,Losartan,Losar,Blood Pressure,50mg,Tablet,25.00,130,2027-05-01,Torrent
+Amlodipine,Amlodipine,Amlong,Blood Pressure,5mg,Tablet,14.00,160,2026-12-22,Micro Labs
+Salbutamol,Salbutamol,Ventolin,Asthma,100mcg,Inhaler,650.00,25,2026-09-10,GSK
+Azithromycin,Azithromycin,Azee,Antibiotic,500mg,Tablet,120.00,4,2026-06-15,Cipla
+Cefixime,Cefixime,Taxim-O,Antibiotic,200mg,Tablet,85.00,55,2026-11-25,Alkem
+Vitamin C,Ascorbic Acid,Celin,Supplement,500mg,Tablet,20.00,140,2027-03-30,GSK
+ORS,Oral Rehydration Salts,Jeevani,Rehydration,21g,Sachet,45.00,70,2027-01-18,SPC
+Betadine,Povidone Iodine,Betadine,Antiseptic,10%,Solution,480.00,30,2027-05-10,Mundipharma
+Diclofenac,Diclofenac,Voveran,Pain Relief,50mg,Tablet,18.00,100,2026-10-01,Novartis
+Ibuprofen,Ibuprofen,Brufen,Pain Relief,400mg,Tablet,24.00,88,2026-09-28,Abbott
