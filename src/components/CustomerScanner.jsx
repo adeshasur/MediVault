@@ -17,7 +17,7 @@ function loadTesseract() {
 }
 
 export default function CustomerScanner() {
-  const [text, setText] = useState("Panadol 500mg\nCetirizine 10mg\nAzithromycin 500mg");
+  const [text, setText] = useState("");
   const [matches, setMatches] = useState([]);
   const [quantities, setQuantities] = useState({});
   const [preview, setPreview] = useState("");
@@ -40,6 +40,11 @@ export default function CustomerScanner() {
   }
 
   function check() {
+    if (!text.trim()) {
+      setMatches([]);
+      setChecked(true);
+      return;
+    }
     const found = matchMedicines(text, seedMedicines);
     setMatches(found);
     setChecked(true);
@@ -75,7 +80,7 @@ export default function CustomerScanner() {
       <div className="notice"><AlertTriangle size={16} /> OCR may contain errors. Check the medicine names before viewing availability.</div>
       <div className="form-actions"><button className="btn secondary" onClick={reset}><RotateCcw size={15} /> Reset</button><button className="btn primary" onClick={check}><Search size={16} /> Check availability</button></div>
     </section>
-    {checked && matches.length === 0 && <div className="notice"><AlertTriangle size={16} /> No medicines matched the prescription text. Check the spelling or ask pharmacy staff for help.</div>}
+    {checked && matches.length === 0 && <div className="notice"><AlertTriangle size={16} /> Add prescription text or upload a clear image. If no medicines are found, check the spelling or ask pharmacy staff for help.</div>}
     {matches.length > 0 && <section className="scan-results">
       <div className="panel-head" style={{padding: "3px 2px"}}><h3>Available medicines</h3><span className="pill green"><CheckCircle2 size={13} /> {matches.length} matches</span></div>
       {matches.map(({ medicine }) => {

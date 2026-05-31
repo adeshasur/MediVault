@@ -19,7 +19,7 @@ function loadTesseract() {
 
 export default function PrescriptionChecker() {
   const { medicines } = useMedicines();
-  const [text, setText] = useState("Panadol 500mg\nCetirizine 10mg\nAzithromycin 500mg");
+  const [text, setText] = useState("");
   const [results, setResults] = useState([]);
   const [preview, setPreview] = useState("");
   const [scanning, setScanning] = useState(false);
