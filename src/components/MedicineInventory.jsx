@@ -11,13 +11,15 @@ export default function MedicineInventory() {
   const { medicines, add, remove, update } = useMedicines();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All categories");
+  const [stockStatus, setStockStatus] = useState("All stock levels");
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
   const categories = ["All categories", ...new Set(medicines.map((medicine) => medicine.category))];
   const filtered = useMemo(() => medicines.filter((medicine) => {
     const blob = `${medicine.name} ${medicine.generic} ${medicine.brand} ${medicine.strength}`.toLowerCase();
-    return blob.includes(query.toLowerCase()) && (category === "All categories" || medicine.category === category);
-  }), [medicines, query, category]);
+    const status = getStatus(medicine).label;
+    return blob.includes(query.toLowerCase()) && (category === "All categories" || medicine.category === category) && (stockStatus === "All stock levels" || status === stockStatus);
+  }), [medicines, query, category, stockStatus]);
   function confirmRemove(medicine) {
     if (window.confirm(`Remove ${medicine.name} from the inventory?`)) remove(medicine.id);
   }
@@ -25,7 +27,7 @@ export default function MedicineInventory() {
   return <>{showForm && <div style={{marginBottom: 16}}><MedicineForm medicine={editing} onSave={(item) => { editing ? update(editing.id, item) : add(item); setEditing(null); setShowForm(false); }} onCancel={() => { setEditing(null); setShowForm(false); }} /></div>}
     <section className="card">
       <div className="toolbar">
-        <div className="toolbar-left"><div className="searchbox input"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search medicines..." /></div><select className="input" value={category} onChange={(event) => setCategory(event.target.value)}>{categories.map((item) => <option key={item}>{item}</option>)}</select></div>
+        <div className="toolbar-left"><div className="searchbox input"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search medicines..." /></div><select className="input" value={category} onChange={(event) => setCategory(event.target.value)}>{categories.map((item) => <option key={item}>{item}</option>)}</select><select className="input" value={stockStatus} onChange={(event) => setStockStatus(event.target.value)}>{["All stock levels", "Available", "Low stock", "Out of stock"].map((item) => <option key={item}>{item}</option>)}</select></div>
         <button className="btn primary" onClick={() => { setEditing(null); setShowForm(!showForm); }}><Plus size={16} /> Add medicine</button>
       </div>
       <div className="table-wrap"><table><thead><tr><th>Medicine</th><th>Category</th><th>Form</th><th>Price</th><th>Stock</th><th>Expiry</th><th>Status</th><th></th></tr></thead><tbody>
