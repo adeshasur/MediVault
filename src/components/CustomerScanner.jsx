@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertTriangle, Camera, CheckCircle2, LoaderCircle, Minus, Plus, Search } from "lucide-react";
+import { AlertTriangle, Camera, CheckCircle2, LoaderCircle, Minus, Plus, RotateCcw, Search } from "lucide-react";
 import { matchMedicines, seedMedicines } from "@/lib/medicines";
 import StatusBadge from "./StatusBadge";
 
@@ -52,6 +52,13 @@ export default function CustomerScanner() {
       [medicine.id]: Math.min(medicine.quantity || 1, Math.max(1, (current[medicine.id] || 1) + amount))
     }));
   }
+  function reset() {
+    setText("");
+    setMatches([]);
+    setQuantities({});
+    setPreview("");
+    setChecked(false);
+  }
 
   const grandTotal = useMemo(() => matches.reduce((sum, { medicine }) => sum + (medicine.quantity > 0 ? medicine.price * (quantities[medicine.id] || 1) : 0), 0), [matches, quantities]);
 
@@ -66,7 +73,7 @@ export default function CustomerScanner() {
       </label>
       <div className="field" style={{marginTop: 14}}><label>Detected prescription text</label><textarea className="input" value={text} onChange={(event) => setText(event.target.value)} placeholder="Type medicine names here..." /></div>
       <div className="notice"><AlertTriangle size={16} /> OCR may contain errors. Check the medicine names before viewing availability.</div>
-      <div className="form-actions"><button className="btn primary" onClick={check}><Search size={16} /> Check availability</button></div>
+      <div className="form-actions"><button className="btn secondary" onClick={reset}><RotateCcw size={15} /> Reset</button><button className="btn primary" onClick={check}><Search size={16} /> Check availability</button></div>
     </section>
     {checked && matches.length === 0 && <div className="notice"><AlertTriangle size={16} /> No medicines matched the prescription text. Check the spelling or ask pharmacy staff for help.</div>}
     {matches.length > 0 && <section className="scan-results">
