@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertTriangle, Camera, CheckCircle2, LoaderCircle, Minus, Plus, Search, Upload } from "lucide-react";
+import { AlertTriangle, Camera, CheckCircle2, LoaderCircle, Minus, Plus, Search } from "lucide-react";
 import { matchMedicines, seedMedicines } from "@/lib/medicines";
 import StatusBadge from "./StatusBadge";
 
@@ -22,6 +22,7 @@ export default function CustomerScanner() {
   const [quantities, setQuantities] = useState({});
   const [preview, setPreview] = useState("");
   const [scanning, setScanning] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   async function upload(event) {
     const file = event.target.files[0];
@@ -41,6 +42,7 @@ export default function CustomerScanner() {
   function check() {
     const found = matchMedicines(text, seedMedicines);
     setMatches(found);
+    setChecked(true);
     setQuantities(Object.fromEntries(found.map(({ medicine }) => [medicine.id, 1])));
   }
 
@@ -66,6 +68,7 @@ export default function CustomerScanner() {
       <div className="notice"><AlertTriangle size={16} /> OCR may contain errors. Check the medicine names before viewing availability.</div>
       <div className="form-actions"><button className="btn primary" onClick={check}><Search size={16} /> Check availability</button></div>
     </section>
+    {checked && matches.length === 0 && <div className="notice"><AlertTriangle size={16} /> No medicines matched the prescription text. Check the spelling or ask pharmacy staff for help.</div>}
     {matches.length > 0 && <section className="scan-results">
       <div className="panel-head" style={{padding: "3px 2px"}}><h3>Available medicines</h3><span className="pill green"><CheckCircle2 size={13} /> {matches.length} matches</span></div>
       {matches.map(({ medicine }) => {
