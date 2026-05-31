@@ -1,0 +1,82 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { AlertTriangle, Camera, CheckCircle2, LoaderCircle, Minus, Plus, Search, Upload } from "lucide-react";
+import { matchMedicines, seedMedicines } from "@/lib/medicines";
+import StatusBadge from "./StatusBadge";
+
+function loadTesseract() {
+  if (window.Tesseract) return Promise.resolve(window.Tesseract);
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js";
+    script.onload = () => resolve(window.Tesseract);
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+export default function CustomerScanner() {
+  const [text, setText] = useState("Panadol 500mg\nCetirizine 10mg\nAzithromycin 500mg");
+  const [matches, setMatches] = useState([]);
+  const [quantities, setQuantities] = useState({});
+  const [preview, setPreview] = useState("");
+  const [scanning, setScanning] = useState(false);
+
+  async function upload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    setPreview(URL.createObjectURL(file));
+    setScanning(true);
+    try {
+      const Tesseract = await loadTesseract();
+      const { data } = await Tesseract.recognize(file, "eng");
+      setText(data.text);
+    } catch {
+      setText("We could not read this image clearly. Please type the medicine names manually.");
+    }
+    setScanning(false);
+  }
+
+  function check() {
+    const found = matchMedicines(text, seedMedicines);
+    setMatches(found);
+    setQuantities(Object.fromEntries(found.map(({ medicine }) => [medicine.id, 1])));
+  }
+
+  function changeQuantity(medicine, amount) {
+    setQuantities((current) => ({
+      ...current,
+      [medicine.id]: Math.min(medicine.quantity || 1, Math.max(1, (current[medicine.id] || 1) + amount))
+    }));
+  }
+
+  const grandTotal = useMemo(() => matches.reduce((sum, { medicine }) => sum + (medicine.quantity > 0 ? medicine.price * (quantities[medicine.id] || 1) : 0), 0), [matches, quantities]);
+
+  return <>
+    <section className="card form-card">
+      <label className="upload">
+        {scanning ? <LoaderCircle className="spin" size={29} /> : <Camera size={29} />}
+        <h3>{scanning ? "Reading your prescription..." : "Take a photo or upload your prescription"}</h3>
+        <p>Use a clear image for better results. JPG, PNG, or WEBP.</p>
+        <input accept="image/*" capture="environment" onChange={upload} type="file" />
+        {preview && <img className="file-preview" src={preview} alt="Prescription preview" />}
+      </label>
+      <div className="field" style={{marginTop: 14}}><label>Detected prescription text</label><textarea className="input" value={text} onChange={(event) => setText(event.target.value)} placeholder="Type medicine names here..." /></div>
+      <div className="notice"><AlertTriangle size={16} /> OCR may contain errors. Check the medicine names before viewing availability.</div>
+      <div className="form-actions"><button className="btn primary" onClick={check}><Search size={16} /> Check availability</button></div>
+    </section>
+    {matches.length > 0 && <section className="scan-results">
+      <div className="panel-head" style={{padding: "3px 2px"}}><h3>Available medicines</h3><span className="pill green"><CheckCircle2 size={13} /> {matches.length} matches</span></div>
+      {matches.map(({ medicine }) => {
+        const requested = quantities[medicine.id] || 1;
+        return <article className="scan-result" key={medicine.id}>
+          <div><h4>{medicine.name} · {medicine.strength}</h4><p>{medicine.generic} · {medicine.form}</p><p style={{marginTop: 7}}>Available quantity: <b>{medicine.quantity} units</b> · Unit price: <b>LKR {medicine.price.toFixed(2)}</b></p></div>
+          <div className="scan-result-right"><StatusBadge label={medicine.quantity > 0 ? "Available" : "Out of stock"} tone={medicine.quantity > 0 ? "green" : "red"} />{medicine.quantity > 0 ? <><div className="qty-control"><button onClick={() => changeQuantity(medicine, -1)}><Minus size={13} /></button><b>{requested}</b><button onClick={() => changeQuantity(medicine, 1)}><Plus size={13} /></button></div><span className="line-total">Total: LKR {(medicine.price * requested).toFixed(2)}</span></> : <span className="line-total">Unavailable</span>}</div>
+        </article>;
+      })}
+      <div className="total-card"><div><span>Estimated prescription total</span><strong>LKR {grandTotal.toFixed(2)}</strong></div><CheckCircle2 size={26} /></div>
+      <div className="notice"><AlertTriangle size={16} /> Availability and prices are estimates. Show this result to pharmacy staff and verify the prescription before purchasing.</div>
+    </section>}
+  </>;
+}
