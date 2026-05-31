@@ -24,9 +24,7 @@ availability** to see matching inventory records.
 Open `/` or `/scan` on a phone to take a prescription photo or enter medicine names.
 After checking availability, customers can review stock quantities, prices,
 requested quantities, line totals, and the estimated prescription total. Use the
-reset button before checking a new prescription. The **Try sample** button loads
-the bundled sample prescription image. Import the demo medicine rows from
-`data/sample-medicines.csv` before using this test.
+reset button before checking a new prescription.
 
 ## Reports
 

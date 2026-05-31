@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertTriangle, Camera, CheckCircle2, FileImage, LoaderCircle, Minus, Plus, RotateCcw, Search } from "lucide-react";
+import { AlertTriangle, Camera, CheckCircle2, LoaderCircle, Minus, Plus, RotateCcw, Search } from "lucide-react";
 import { matchMedicines } from "@/lib/medicines";
 import { readMedicineNames } from "@/lib/ocr";
 import { useMedicines } from "@/hooks/useMedicines";
@@ -32,11 +32,6 @@ export default function CustomerScanner() {
   }
   async function upload(event) {
     await processImage(event.target.files[0]);
-  }
-  async function useSample() {
-    const response = await fetch("/samples/sample-prescription.png");
-    const blob = await response.blob();
-    await processImage(new File([blob], "sample-prescription.png", { type: "image/png" }));
   }
 
   function check() {
@@ -79,7 +74,7 @@ export default function CustomerScanner() {
       <div className="field" style={{marginTop: 14}}><label>Detected prescription text</label><textarea className="input" value={text} onChange={(event) => setText(event.target.value)} placeholder="Type medicine names here..." /></div>
       <div className="notice"><AlertTriangle size={16} /> OCR may contain errors. Check the medicine names before viewing availability.</div>
       {error && <div className="notice"><AlertTriangle size={16} /> {error} Ask pharmacy staff to configure the inventory database.</div>}
-      <div className="form-actions"><button className="btn secondary" disabled={loading || Boolean(error) || scanning} onClick={useSample}><FileImage size={15} /> Try sample</button><button className="btn secondary" onClick={reset}><RotateCcw size={15} /> Reset</button><button className="btn primary" disabled={loading || Boolean(error)} onClick={check}><Search size={16} /> {loading ? "Loading inventory..." : "Check availability"}</button></div>
+      <div className="form-actions"><button className="btn secondary" onClick={reset}><RotateCcw size={15} /> Reset</button><button className="btn primary" disabled={loading || Boolean(error)} onClick={check}><Search size={16} /> {loading ? "Loading inventory..." : "Check availability"}</button></div>
     </section>
     {checked && matches.length === 0 && <div className="notice"><AlertTriangle size={16} /> No medicine names were detected. Upload a clearer image or type the medicine names manually.</div>}
     {matches.length > 0 && <section className="scan-results">
