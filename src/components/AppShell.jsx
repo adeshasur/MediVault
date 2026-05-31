@@ -1,0 +1,42 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Bell, Boxes, ClipboardCheck, FileWarning, LayoutDashboard, LogOut, Menu, Search, Settings, ShieldCheck } from "lucide-react";
+import Logo from "./Logo";
+
+const nav = [
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/medicines", label: "Medicine inventory", icon: Boxes },
+  { href: "/checker", label: "Prescription checker", icon: ClipboardCheck },
+  { href: "/reports", label: "Reports & alerts", icon: FileWarning },
+  { href: "/settings", label: "Settings", icon: Settings }
+];
+
+export default function AppShell({ children }) {
+  const path = usePathname();
+  return (
+    <div className="shell">
+      <aside className="sidebar">
+        <Logo />
+        <div className="nav-group-title">Workspace</div>
+        {nav.map(({ href, label, icon: Icon }) => (
+          <Link className={`side-link ${path.startsWith(href) ? "active" : ""}`} href={href} key={href}><Icon size={17} />{label}</Link>
+        ))}
+        <div className="nav-group-title">Account</div>
+        <Link className="side-link" href="/"><ShieldCheck size={17} />Safety notice</Link>
+        <Link className="side-link" href="/login"><LogOut size={17} />Log out</Link>
+        <div className="sidebar-foot">
+          <div className="profile"><span className="avatar">AD</span><div><b>Admin</b><span>Pharmacy administrator</span></div></div>
+        </div>
+      </aside>
+      <main className="workspace">
+        <header className="topbar">
+          <div className="searchbox"><button className="icon-btn mobile-menu"><Menu size={18} /></button><Search size={17} /><input placeholder="Search inventory..." /></div>
+          <div className="top-actions"><button className="icon-btn"><Bell size={17} /></button><span className="pill green">System online</span></div>
+        </header>
+        <div className="content">{children}</div>
+      </main>
+    </div>
+  );
+}
