@@ -18,6 +18,9 @@ export default function MedicineInventory() {
     const blob = `${medicine.name} ${medicine.generic} ${medicine.brand} ${medicine.strength}`.toLowerCase();
     return blob.includes(query.toLowerCase()) && (category === "All categories" || medicine.category === category);
   }), [medicines, query, category]);
+  function confirmRemove(medicine) {
+    if (window.confirm(`Remove ${medicine.name} from the inventory?`)) remove(medicine.id);
+  }
 
   return <>{showForm && <div style={{marginBottom: 16}}><MedicineForm medicine={editing} onSave={(item) => { editing ? update(editing.id, item) : add(item); setEditing(null); setShowForm(false); }} onCancel={() => { setEditing(null); setShowForm(false); }} /></div>}
     <section className="card">
@@ -26,7 +29,7 @@ export default function MedicineInventory() {
         <button className="btn primary" onClick={() => { setEditing(null); setShowForm(!showForm); }}><Plus size={16} /> Add medicine</button>
       </div>
       <div className="table-wrap"><table><thead><tr><th>Medicine</th><th>Category</th><th>Form</th><th>Price</th><th>Stock</th><th>Expiry</th><th>Status</th><th></th></tr></thead><tbody>
-        {filtered.map((medicine) => <tr key={medicine.id}><td className="medicine-name"><b>{medicine.name}</b><span>{medicine.generic} · {medicine.brand}</span></td><td>{medicine.category}</td><td>{medicine.strength} {medicine.form}</td><td>LKR {Number(medicine.price).toFixed(2)}</td><td>{medicine.quantity}</td><td>{medicine.expiry}</td><td><StatusBadge {...getStatus(medicine)} /></td><td><div className="table-actions"><button title="Edit record" onClick={() => { setEditing(medicine); setShowForm(true); }}><Pencil size={15} /></button><button title="Remove record" onClick={() => remove(medicine.id)}><Trash2 size={15} /></button></div></td></tr>)}
+        {filtered.map((medicine) => <tr key={medicine.id}><td className="medicine-name"><b>{medicine.name}</b><span>{medicine.generic} · {medicine.brand}</span></td><td>{medicine.category}</td><td>{medicine.strength} {medicine.form}</td><td>LKR {Number(medicine.price).toFixed(2)}</td><td>{medicine.quantity}</td><td>{medicine.expiry}</td><td><StatusBadge {...getStatus(medicine)} /></td><td><div className="table-actions"><button title="Edit record" onClick={() => { setEditing(medicine); setShowForm(true); }}><Pencil size={15} /></button><button title="Remove record" onClick={() => confirmRemove(medicine)}><Trash2 size={15} /></button></div></td></tr>)}
       </tbody></table>{filtered.length === 0 && <div className="empty"><SlidersHorizontal size={24} /><p>No medicines match your filters.</p></div>}</div>
     </section>
   </>;
