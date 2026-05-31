@@ -221,11 +221,14 @@ td b { display: block; }
   .landing-links a:not(.btn) { display: none; }
   .hero h1 { font-size: 57px; }
   .feature-grid, .report-grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
   .content { padding: 20px 14px; }
   .topbar { padding: 12px 14px; }
   .topbar .searchbox input { display: none; }
   .page-head { align-items: start; flex-direction: column; }
   .form-grid { grid-template-columns: 1fr; }
+  .toolbar, .toolbar-left { align-items: stretch; flex-direction: column; }
+  .toolbar .input { max-width: none; }
   .auth { grid-template-columns: 1fr; }
   .auth-visual { display: none; }
   .scan-nav { padding: 12px 15px; }
