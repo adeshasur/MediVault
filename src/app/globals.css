@@ -110,6 +110,7 @@ textarea.input { min-height: 150px; resize: vertical; }
 .top-actions { align-items: center; display: flex; gap: 10px; }
 .icon-btn { align-items: center; background: white; border: 1px solid var(--line); border-radius: 10px; color: #567270; display: flex; height: 38px; justify-content: center; width: 38px; }
 .mobile-menu { display: none; }
+.nav-backdrop { display: none; }
 .content { max-width: 1540px; padding: 30px; }
 .stats { display: grid; gap: 14px; grid-template-columns: repeat(4, 1fr); }
 .stat-card { padding: 18px; }
@@ -210,6 +211,8 @@ td b { display: block; }
   .preview { width: min(90vw, 430px); }
   .shell { grid-template-columns: 1fr; }
   .sidebar { display: none; }
+  .sidebar.open { display: flex; left: 0; position: fixed; z-index: 8; }
+  .nav-backdrop { background: rgba(5, 28, 29, .45); border: 0; display: block; inset: 0; position: fixed; z-index: 7; }
   .mobile-menu { display: flex; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .dashboard-grid, .split { grid-template-columns: 1fr; }

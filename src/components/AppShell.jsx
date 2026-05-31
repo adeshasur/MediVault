@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { Bell, Boxes, ClipboardCheck, FileWarning, LayoutDashboard, LogOut, Menu, Search, Settings, ShieldCheck } from "lucide-react";
 import Logo from "./Logo";
 
@@ -15,13 +16,14 @@ const nav = [
 
 export default function AppShell({ children }) {
   const path = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="shell">
-      <aside className="sidebar">
+      <aside className={`sidebar ${menuOpen ? "open" : ""}`}>
         <Logo />
         <div className="nav-group-title">Workspace</div>
         {nav.map(({ href, label, icon: Icon }) => (
-          <Link className={`side-link ${path.startsWith(href) ? "active" : ""}`} href={href} key={href}><Icon size={17} />{label}</Link>
+          <Link className={`side-link ${path.startsWith(href) ? "active" : ""}`} href={href} key={href} onClick={() => setMenuOpen(false)}><Icon size={17} />{label}</Link>
         ))}
         <div className="nav-group-title">Account</div>
         <Link className="side-link" href="/"><ShieldCheck size={17} />Safety notice</Link>
@@ -32,11 +34,12 @@ export default function AppShell({ children }) {
       </aside>
       <main className="workspace">
         <header className="topbar">
-          <div className="searchbox"><button className="icon-btn mobile-menu"><Menu size={18} /></button><Search size={17} /><input placeholder="Search inventory..." /></div>
+          <div className="searchbox"><button className="icon-btn mobile-menu" onClick={() => setMenuOpen(!menuOpen)}><Menu size={18} /></button><Search size={17} /><input placeholder="Search inventory..." /></div>
           <div className="top-actions"><button className="icon-btn"><Bell size={17} /></button><span className="pill green">System online</span></div>
         </header>
         <div className="content">{children}</div>
       </main>
+      {menuOpen && <button aria-label="Close navigation" className="nav-backdrop" onClick={() => setMenuOpen(false)} />}
     </div>
   );
 }
