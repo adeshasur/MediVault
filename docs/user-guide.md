@@ -2,8 +2,15 @@
 
 ## Demo Access
 
-Open `/login` and continue with the pre-filled demo account. The demo uses local
-browser storage, so it can be explored before a Supabase project is connected.
+Open `/login` and enter the temporary staff account:
+
+```text
+Username: admin
+Password: MediVault@2026
+```
+
+Staff pages redirect to `/login` until a valid staff session exists. The demo
+uses browser session storage until Supabase Auth is connected.
 
 ## Inventory
 

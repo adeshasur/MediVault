@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Bell, Boxes, ClipboardCheck, FileWarning, LayoutDashboard, LogOut, Menu, Search, Settings, ShieldCheck } from "lucide-react";
 import Logo from "./Logo";
+import { getStaffUser, signOut } from "@/lib/auth";
 
 const nav = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -16,7 +18,21 @@ const nav = [
 
 export default function AppShell({ children }) {
   const path = usePathname();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (!getStaffUser()) {
+      router.replace("/login");
+      return;
+    }
+    setReady(true);
+  }, [router]);
+  function logout() {
+    signOut();
+    router.replace("/login");
+  }
+  if (!ready) return <div className="auth-loading">Checking staff access...</div>;
   return (
     <div className="shell">
       <aside className={`sidebar ${menuOpen ? "open" : ""}`}>
@@ -27,7 +43,7 @@ export default function AppShell({ children }) {
         ))}
         <div className="nav-group-title">Account</div>
         <Link className="side-link" href="/"><ShieldCheck size={17} />Safety notice</Link>
-        <Link className="side-link" href="/login"><LogOut size={17} />Log out</Link>
+        <button className="side-link side-button" onClick={logout}><LogOut size={17} />Log out</button>
         <div className="sidebar-foot">
           <div className="profile"><span className="avatar">AD</span><div><b>Admin</b><span>Pharmacy administrator</span></div></div>
         </div>

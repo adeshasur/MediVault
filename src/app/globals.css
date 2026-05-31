@@ -98,6 +98,7 @@ textarea.input { min-height: 150px; resize: vertical; }
 .side-link { align-items: center; border-radius: 10px; color: #b8d1ce; display: flex; font-size: 13px; font-weight: 700; gap: 11px; margin: 2px 0; padding: 11px; }
 .side-link:hover, .side-link.active { background: rgba(135, 211, 182, .14); color: #ddfff2; }
 .side-link.active { border-left: 3px solid #76d0ad; }
+.side-button { background: transparent; border: 0; text-align: left; width: 100%; }
 .sidebar-foot { border-top: 1px solid rgba(255,255,255,.1); margin-top: auto; padding: 17px 4px 0; }
 .profile { align-items: center; display: flex; gap: 10px; }
 .avatar { align-items: center; background: #d8f2e8; border-radius: 50%; color: var(--green-dark); display: flex; font-size: 11px; font-weight: 800; height: 36px; justify-content: center; width: 36px; }
@@ -203,6 +204,8 @@ td b { display: block; }
 .auth-form h2 { font-size: 43px; line-height: 1; margin: 9px 0; }
 .auth-form form { display: grid; gap: 15px; margin-top: 27px; }
 .auth-foot { color: var(--muted); font-size: 11px; line-height: 1.6; margin-top: 20px; text-align: center; }
+.auth-loading { align-items: center; background: var(--mint-2); color: var(--green-dark); display: flex; font-weight: 800; justify-content: center; min-height: 100vh; }
+.login-error { color: var(--red); font-size: 12px; font-weight: 700; margin: 0; }
 
 @media (max-width: 950px) {
   .hero { grid-template-columns: 1fr; padding-top: 50px; }
