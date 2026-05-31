@@ -4,18 +4,8 @@ import { useState } from "react";
 import { AlertTriangle, FileImage, LoaderCircle, ScanLine, Sparkles, Upload } from "lucide-react";
 import StatusBadge from "./StatusBadge";
 import { getStatus, matchMedicines } from "@/lib/medicines";
+import { readMedicineNames } from "@/lib/ocr";
 import { useMedicines } from "@/hooks/useMedicines";
-
-function loadTesseract() {
-  if (window.Tesseract) return Promise.resolve(window.Tesseract);
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js";
-    script.onload = () => resolve(window.Tesseract);
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-}
 
 export default function PrescriptionChecker() {
   const { medicines } = useMedicines();
@@ -32,11 +22,12 @@ export default function PrescriptionChecker() {
     setPreview(URL.createObjectURL(file));
     setScanning(true);
     try {
-      const Tesseract = await loadTesseract();
-      const { data } = await Tesseract.recognize(file, "eng");
-      setText(data.text);
+      const medicineNames = await readMedicineNames(file, medicines);
+      setText(medicineNames);
+      if (!medicineNames) setChecked(true);
     } catch {
-      setText("OCR could not read this image clearly. Enter the prescription text manually.");
+      setText("");
+      setChecked(true);
     }
     setScanning(false);
   }

@@ -3,18 +3,8 @@
 import { useMemo, useState } from "react";
 import { AlertTriangle, Camera, CheckCircle2, LoaderCircle, Minus, Plus, RotateCcw, Search } from "lucide-react";
 import { matchMedicines, seedMedicines } from "@/lib/medicines";
+import { readMedicineNames } from "@/lib/ocr";
 import StatusBadge from "./StatusBadge";
-
-function loadTesseract() {
-  if (window.Tesseract) return Promise.resolve(window.Tesseract);
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js";
-    script.onload = () => resolve(window.Tesseract);
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-}
 
 export default function CustomerScanner() {
   const [text, setText] = useState("");
@@ -30,11 +20,12 @@ export default function CustomerScanner() {
     setPreview(URL.createObjectURL(file));
     setScanning(true);
     try {
-      const Tesseract = await loadTesseract();
-      const { data } = await Tesseract.recognize(file, "eng");
-      setText(data.text);
+      const medicineNames = await readMedicineNames(file, seedMedicines);
+      setText(medicineNames);
+      if (!medicineNames) setChecked(true);
     } catch {
-      setText("We could not read this image clearly. Please type the medicine names manually.");
+      setText("");
+      setChecked(true);
     }
     setScanning(false);
   }
@@ -72,7 +63,7 @@ export default function CustomerScanner() {
       <label className="upload">
         {scanning ? <LoaderCircle className="spin" size={29} /> : <Camera size={29} />}
         <h3>{scanning ? "Reading your prescription..." : "Take a photo or upload your prescription"}</h3>
-        <p>Use a clear image for better results. JPG, PNG, or WEBP.</p>
+        <p>Only detected medicine names will be added below. JPG, PNG, or WEBP.</p>
         <input accept="image/*" capture="environment" onChange={upload} type="file" />
         {preview && <img className="file-preview" src={preview} alt="Prescription preview" />}
       </label>
@@ -80,7 +71,7 @@ export default function CustomerScanner() {
       <div className="notice"><AlertTriangle size={16} /> OCR may contain errors. Check the medicine names before viewing availability.</div>
       <div className="form-actions"><button className="btn secondary" onClick={reset}><RotateCcw size={15} /> Reset</button><button className="btn primary" onClick={check}><Search size={16} /> Check availability</button></div>
     </section>
-    {checked && matches.length === 0 && <div className="notice"><AlertTriangle size={16} /> Add prescription text or upload a clear image. If no medicines are found, check the spelling or ask pharmacy staff for help.</div>}
+    {checked && matches.length === 0 && <div className="notice"><AlertTriangle size={16} /> No medicine names were detected. Upload a clearer image or type the medicine names manually.</div>}
     {matches.length > 0 && <section className="scan-results">
       <div className="panel-head" style={{padding: "3px 2px"}}><h3>Available medicines</h3><span className="pill green"><CheckCircle2 size={13} /> {matches.length} matches</span></div>
       {matches.map(({ medicine }) => {
